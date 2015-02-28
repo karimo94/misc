@@ -2,19 +2,27 @@ static void iterativeMergeSort(int[] items, int first, int last)
         {
             int[] temp = new int[items.Length];
             int left, middle, right;
-            for (int outer = 1; outer < last / 2; outer *= 2)
+            for (int outer = 1; outer < last; outer *= 2)
             {
-                for (int inner = first; inner < last; inner = inner * outer + 1)
+                for (int inner = 0; inner < last; inner += outer * 2)
                 {
-                    left = first;  
-                    middle = inner;
-                    right = inner+1;
+                    left = inner;
+                    middle = (inner + outer) - 1;
+                    right = (inner + (outer * 2))-1;
                     Merge(items, left, middle, right, temp);
                 }
             }
         }
         static void Merge(int[] items, int first, int mid, int last, int[] temp)
         {
+            if (mid >= items.Length)
+            {
+                mid = items.Length - 1;
+            }
+            if (last >= items.Length)
+            {
+                last = items.Length - 1;
+            }
             int first1 = first;
             int last1 = mid;
             int first2 = mid + 1;
